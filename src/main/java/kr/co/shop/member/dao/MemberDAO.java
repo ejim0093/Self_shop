@@ -1,0 +1,16 @@
+package kr.co.shop.member.dao;
+
+import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+
+import kr.co.shop.member.vo.MemberDTO;
+
+
+public interface MemberDAO {
+
+	public List<MemberDTO> selectAllMemberList() throws DataAccessException;
+	public int insertMember(MemberDTO memberDTO) throws DataAccessException;
+	public int deleteMember(String id) throws DataAccessException;
+	public MemberDTO loginById(MemberDTO memberDTO) throws DataAccessException;
+}

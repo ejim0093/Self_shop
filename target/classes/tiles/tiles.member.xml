@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<!-- baseLayout : 공통 레이아웃의 뷰 이름을 지정
+		template : 전체 레이아웃을 정하는 jsp 위치 지정 -->
+	<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" /> <!-- 레이아웃 상단(헤더)을 구현 -->
+		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+	
+	<!-- 메인 화면의 뷰이름 -->		<!-- 기본 레이아웃은 baseLayout를 상속 -->
+	<definition name="main" extends="baseLayout">
+		<put-attribute name="title" value="메인페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
+	</definition>
+	
+	<!-- 컨트롤러에서 반환되는 뷰이름 지정 -->
+	<definition name="/member/listMembers" extends="baseLayout">
+		<put-attribute name="title" value="회원 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/member/listMembers.jsp" />
+	</definition>
+	
+	<definition name="/member/loginForm" extends="baseLayout">
+		<put-attribute name="title" value="로그인창" />
+		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+	</definition>
+	
+</tiles-definitions>

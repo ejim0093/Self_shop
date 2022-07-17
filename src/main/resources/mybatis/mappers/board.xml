@@ -12,6 +12,7 @@
 		<result property="content" column="content" />
 		<result property="imageFileName" column="imageFileName" />
 		<result property="writeDate" column="writeDate" />
+		<result property="id" column="id" />
 	</resultMap>
 	
 	<select id="selectAllArticlesList" resultMap="articlesResult">
@@ -31,4 +32,17 @@
 		 ]]>
 	</select>
 
+	<insert id="insertNewArticle" parameterType="java.util.Map">
+		<![CDATA[ 	
+			INSERT INTO T_BOARD
+			(ARTICLENO, TITLE, CONTENT, IMAGEFILENAME, ID)
+			VALUES(#{articleNO}, #{title}, #{content}, #{imageFileName}, #{id});
+		]]>
+	</insert>
+	
+	<select id="selectNewArticleNO" resultType="int">
+		<![CDATA[ 
+			SELECT max(articleNO)+1 from t_board
+		]]>
+	</select>
 </mapper>  

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import kr.co.shop.member.vo.MemberDTO;
+import kr.co.shop.member.dto.MemberDTO;
 
 
 public interface MemberDAO {

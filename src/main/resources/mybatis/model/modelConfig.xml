@@ -6,6 +6,7 @@
 <configuration>
 	<!-- 마이바티스에서 데이터 전달에 사용될 memberDTO 빈을 설정 -->
 	<typeAliases>
-		<typeAlias type="kr.co.tiles.member.dto.MemberDTO" alias="memberDTO"/>
+		<typeAlias type="kr.co.shop.member.dto.MemberDTO" alias="memberDTO"/>
+		<typeAlias type="kr.co.shop.board.dto.ArticleDTO" alias="articleDTO"/>
 	</typeAliases>
 </configuration>  

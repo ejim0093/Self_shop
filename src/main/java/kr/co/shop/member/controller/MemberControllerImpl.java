@@ -20,9 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.shop.member.dto.MemberDTO;
 import kr.co.shop.member.service.MemberService;
-import kr.co.shop.member.vo.MemberDTO;
-
 
 /*
  * @Controller를 이용해 MemberControllerImpl 클레스에 id가 memberController 인 빈을 자동 생성
@@ -39,6 +38,14 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 	// @Autowired를 이용해 id가 MemberDTO 빈을 자동 주입
 	@Autowired
 	private MemberDTO memberDTO;
+
+	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
 	
 	// 두 단계로 요청시 바로 해당 메서드를 호출하도록 매핑함
 	@Override

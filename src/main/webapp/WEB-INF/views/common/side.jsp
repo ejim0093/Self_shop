@@ -17,8 +17,8 @@
 </head>
 <body>
 	<h1>
-		<a href="member/listMembers.do" class="no-underline">멤버 리스트</a><br><br><br>
-		<a href="#" class="no-underline">게시글 리스트</a><br><br><br>
+		<a href="${contextPath }/member/listMembers.do" class="no-underline">멤버 리스트</a><br><br><br>
+		<a href="${contextPath }/board/listArticles.do" class="no-underline">게시글 리스트</a><br><br><br>
 		<a href="#" class="no-underline">상품 리스트</a><br><br><br>
 	</h1>
 </body>

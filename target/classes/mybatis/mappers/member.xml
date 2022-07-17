@@ -13,38 +13,13 @@
 		<result property="joinDate" column="joinDate" />
 	</resultMap>
 	
-	
-	<!-- 지정한 컬럼 이름을 key, 값을 value로 해서 저장 -->
-<!-- 	
-	<resultMap type="java.util.HashMap" id="memResult">
-		<result property="id" column="id" />
-		<result property="pwd" column="pwd" />
-		<result property="name" column="name" />
-		<result property="email" column="email" />
-		<result property="joinDate" column="joinDate" />		
-	</resultMap>
- -->	
 															<!-- resultMap: 반환되는 레코드를 memResult에 저장함 -->	
 	<select id="selectAllMemberList" resultMap="memResult"> <!-- id: dao에서 id를 이용해 해당 SQL 호출 -->
 		<![CDATA[ 		
 			SELECT * FROM T_MEMBER ORDER BY JOINDATE DESC
 		 ]]>
 	</select>
-	
-	<!-- id : MemberDAO에서 접근시 사용할 id -->
-	<!-- resultType : sql문 조회 결과 이름을 호출한 메서드로 반환함 -->
-	<select id="selectName" resultType="String" >
-		<![CDATA[
-			SELECT NAME FROM T_MEMBER WHERE ID = 'lee'
-		]]>
-	</select>
-	
-	<select id="selectPwd" resultType="String" >
-		<![CDATA[
-			SELECT PWD FROM T_MEMBER WHERE ID = 'lee'
-		]]>
-	</select>	
-	
+
 	<!-- id: MemberDAO에서 호출하는 id를 지정함 -->
 	<!-- resultType : 조회되는 한개의 레코드를 memberDTO에 저장함 -->
 	<!-- parameterType : MemberDAO에서 SQL문 호출 시 전달되는 매개변수의 데이터 타입 지정-->
@@ -67,7 +42,7 @@
 		<![CDATA[
 			SELECT * FROM T_MEMBER					
 		]]>
-		<where>			<!-- where 태그 이용해 sql문 where절 구성함 -->
+		<where>			
 			<if test="name !='' and name != null ">
 				name = #{name}
 			</if>
@@ -84,9 +59,8 @@
 		<![CDATA[
 			SELECT * FROM T_MEMBER					
 		]]>
-		<where>			<!-- where 태그 이용해 sql문 where절 구성함 -->
+		<where>			
 			<choose>
-				<!-- name과 email 속성 값이 모두 있는 경우 name 속성 값 and email 속성 값이 있는 조건식을 where절에 추가-->
 				<when test="name !='' and name != null and email !='' and email != null">
 					name = #{name} and email = #{email}
 				</when>

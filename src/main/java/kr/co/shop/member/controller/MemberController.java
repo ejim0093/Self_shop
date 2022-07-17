@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.shop.member.vo.MemberDTO;
+import kr.co.shop.member.dto.MemberDTO;
 
 public interface MemberController {
 

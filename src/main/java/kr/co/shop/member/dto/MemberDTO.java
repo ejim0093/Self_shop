@@ -1,4 +1,4 @@
-package kr.co.shop.member.vo;
+package kr.co.shop.member.dto;
 
 import java.sql.Date;
 

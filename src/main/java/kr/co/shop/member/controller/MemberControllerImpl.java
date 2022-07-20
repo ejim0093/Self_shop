@@ -64,54 +64,27 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 		mav.addObject("membersList", membersList);
 		return mav;		// ModelAndView 객체에 설정한 뷰 이름을 타일즈 뷰리졸버로 반환
 	}
-	
-	//요청명이 *Form.do로 끝나면 form메서드 호출
-//	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)
-//	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		String viewName = getViewName(request);
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName(viewName);
-//		return mav;
-//	}
-	
-	/*
-	 * 로그인창 요청 시 매개변수 result가 전송되면
-	 * 변수 result에 값을 저장함 
-	 * 매개변수 result가 전송되지 않으면 무시함 
-	 */
+
 	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)
 	public ModelAndView form(@RequestParam(value = "result",  required = false) String result,
+							 @RequestParam(value = "action",  required = false) String action,
 					HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//String viewName = getViewName(request);
-		
-		//
+
 		String viewName = (String) request.getAttribute("viewName");
 		
+		HttpSession session = request.getSession();
+		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
 		mav.setViewName(viewName);
 		return mav;
 	}
 
-	//회원가입창에서 전송된 회원 정보를 @ModelAttribute를 이용해 dto 객체에 설정
 	@Override
 	@RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	public ModelAndView addMember(@ModelAttribute("member") MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
-//		String id = request.getParameter("id");
-//		String pwd = request.getParameter("pwd");
-//		String name = request.getParameter("name");
-//		String email = request.getParameter("email");
-//		
-//		memberDTO.setId(id);
-//		memberDTO.setPwd(pwd);
-//		memberDTO.setName(name);
-//		memberDTO.setEmail(email);
-		
-		//bind(request, memberDTO);
-		
-		//설정된 MemberDTO 객체를 SQL문으로 전달해 회원 등록
 		int result = memberService.addMember(memberDTO);
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
@@ -134,14 +107,21 @@ public class MemberControllerImpl extends MultiActionController implements Membe
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-		
 		memberDTO = memberService.login(member);
+		
 		if(memberDTO != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", memberDTO);	// 세션에 회원 정보를 저장함
 			session.setAttribute("isLogOn", true);		// 세션에 로그인 상태를 true로 설정함
-			mav.setViewName("redirect:/member/listMembers.do");	//memberDTO로 반환된 값이 있으면 세션을 이용해 로그인상태
 			
+			String action = (String) session.getAttribute("action");
+			session.removeAttribute("action");
+			
+			if (action != null) {
+				mav.setViewName("redirect:"+action);
+			} else {
+				mav.setViewName("redirect:/member/listMembers.do");
+			}
 		} else {
 			rAttributes.addAttribute("result", "loginFailed");	// 로그인 실패 시 실패 메시지를 로그인창 전달
 			mav.setViewName("redirect:/member/loginForm.do");	// 로그인 실패 시 다시 로그인창으로 리다이렉트

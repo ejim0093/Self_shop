@@ -36,7 +36,7 @@
 		<![CDATA[ 	
 			INSERT INTO T_BOARD
 			(ARTICLENO, TITLE, CONTENT, IMAGEFILENAME, ID)
-			VALUES(#{articleNO}, #{title}, #{content}, #{imageFileName}, #{id});
+			VALUES(#{articleNO}, #{title}, #{content}, #{imageFileName}, #{id})
 		]]>
 	</insert>
 	

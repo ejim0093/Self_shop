@@ -31,8 +31,12 @@
 </head>
 <body>
 <h1 style="text-align:center">새글 쓰기</h1>
-  <form name="articleForm" method="post"   action="${contextPath}/board/addArticle.do"   enctype="multipart/form-data">
+  <form name="articleForm" method="post" action="${contextPath}/board/addNewArticle.do"   enctype="multipart/form-data">
     <table border="0" align="center">
+     <tr>
+	   <td align="right">작성자: </td>
+	   <td colspan="2" align="left"><input type="text" size="200"  maxlength="100" value="${member.name }" readonly="readonly" /></td>
+	 </tr>
      <tr>
 	   <td align="right">글제목: </td>
 	   <td colspan="2"><input type="text" size="67"  maxlength="500" name="title" /></td>

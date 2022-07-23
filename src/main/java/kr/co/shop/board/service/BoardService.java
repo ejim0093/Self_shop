@@ -10,5 +10,6 @@ public interface BoardService {
 	List<ArticleDTO> listArticles() throws Exception ;
 
 	public int addNewArticle(Map<String, Object> articleMap) throws Exception;
+	public ArticleDTO viewArtivle(int articleNO) throws Exception;
 
 }

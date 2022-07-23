@@ -35,7 +35,7 @@
     <table border="0" align="center">
      <tr>
 	   <td align="right">작성자: </td>
-	   <td colspan="2" align="left"><input type="text" size="200"  maxlength="100" value="${member.name }" readonly="readonly" /></td>
+	   <td colspan="2" align="left"><td colspan="2" align="center" value="${member.name }" readonly="readonly" /></td>
 	 </tr>
      <tr>
 	   <td align="right">글제목: </td>
@@ -43,7 +43,7 @@
 	 </tr>
 	 <tr>
 		<td align="right" valign="top"><br>글내용: </td>
-		<td colspan=2><textarea name="content" rows="10" cols="65" maxlength="4000"></textarea> </td>
+		<td colspan=2><textarea name="content" rows="20" cols="100" maxlength="4000" ></textarea> </td>
      </tr>
      <tr>
         <td align="right">이미지파일 첨부:  </td>

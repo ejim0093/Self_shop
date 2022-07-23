@@ -28,4 +28,9 @@ public class BoardServiceImpl implements BoardService {
 	public int addNewArticle(Map<String, Object> articleMap) throws Exception {
 		return boardDAO.insertNewArticle(articleMap);
 	}
+
+	@Override
+	public ArticleDTO viewArtivle(int articleNO) throws Exception {
+		return boardDAO.viewArtivle(articleNO);
+	}
 }

@@ -45,4 +45,12 @@
 			SELECT max(articleNO)+1 from t_board
 		]]>
 	</select>
+	
+	<select id="selectArticle" resultType="articleDTO" parameterType="int">
+		<![CDATA[ 
+			SELECT *
+			FROM T_BOARD
+			WHERE ARTICLENO = #{articleNO}
+		]]>
+	</select>
 </mapper>  

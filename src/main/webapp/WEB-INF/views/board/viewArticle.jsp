@@ -109,27 +109,44 @@
       내용
    </td>
    <td>
-    <textarea rows="20" cols="60"  name="content"  id="i_content"  disabled />${article.content }</textarea>
+    <textarea rows="20" cols="60"  name="content"  id="i_content" disabled >${article.content }</textarea>
    </td>  
   </tr>
- 
-<c:if test="${not empty article.imageFileName && article.imageFileName!='null' }">  
-<tr>
-    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
-      이미지
-   </td>
-   <td>
-     <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
-    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" id="preview"  /><br>
-       
-   </td>   
-  </tr>  
-  <tr>
-    <td>
-       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
-    </td>
-  </tr>
- </c:if>
+ <c:choose>
+ 	<c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
+ 		<tr>
+		    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+		      이미지
+		   </td>
+		   <td>
+		     <input type="hidden" name="originalFileName" value="${article.imageFileName }" />
+		    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" id="preview"  /><br>
+		   </td>   
+		  </tr>  
+		  <tr>
+		    <td>
+		       <input type="file"  name="imageFileName " id="i_imageFileName" disabled onchange="readURL(this);" />
+		    </td>
+	  </tr>
+ 	</c:when>
+ 	<c:otherwise>
+ 		<tr id="tr=file_upload">
+ 			<td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+ 				이미지
+		   </td>
+		   <td>
+		   	<input type="hidden" name="originalFileName" value="${article.imageFileName }" />
+		   </td>
+ 		</tr>
+ 		<tr>
+ 			<td></td>
+ 			<td>
+ 				<img id="preview" />
+ 				<input type="file" name="imageFileName" id="i_imageFileName" disabled="disabled" onchange="readURL(this);" />
+ 			</td>
+ 		</tr>
+ 	</c:otherwise>
+  </c:choose>
   <tr>
 	   <td width="150" align="center" bgcolor="#FF9933">
 	      등록일자

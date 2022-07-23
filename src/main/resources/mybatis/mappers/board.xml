@@ -53,4 +53,13 @@
 			WHERE ARTICLENO = #{articleNO}
 		]]>
 	</select>
+	
+	<update id="updateArticle" parameterType="java.util.Map">
+		UPDATE T_BOARD
+		SET TITLE=#{title}, CONTENT=#{content}
+		<if test="imageFileName != '' and imageFileName != null">
+			, IMAGEFILENAME=#{imageFileName}
+		</if>
+		WHERE ARTICLENO=#{articleNO}
+	</update>
 </mapper>  

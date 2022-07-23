@@ -13,5 +13,6 @@ public interface BoardDAO {
 
 	public int insertNewArticle(Map<String, Object> articleMap) throws DataAccessException;
 	public ArticleDTO viewArtivle(int articleNO) throws DataAccessException;
+	public void modArticle(Map<String, Object> articleMap) throws DataAccessException;
 
 }

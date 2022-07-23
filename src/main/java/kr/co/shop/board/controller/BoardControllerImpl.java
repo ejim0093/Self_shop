@@ -157,6 +157,69 @@ public class BoardControllerImpl implements BoardController {
 		
 		return mav;
 	}
+
+	@Override
+	@RequestMapping(value = "/board/modArticle.do", method = RequestMethod.POST)
+	public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
+		
+		multipartRequest.setCharacterEncoding("utf-8");
+		Map<String, Object> articleMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		
+		while(enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			articleMap.put(name, value);
+		}
+		
+		String imageFileName = upload(multipartRequest);
+		
+		HttpSession session = multipartRequest.getSession();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		String id = memberDTO.getId();
+		articleMap.put("id", id);
+		articleMap.put("imageFileName", imageFileName);
+		String articleNO = (String) articleMap.get("articleNO");
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders reHttpHeaders = new HttpHeaders();
+		reHttpHeaders.add("content-type", "text/html; charset=utf-8");
+		
+		try {
+			boardService.modArticle(articleMap);
+			
+			if(imageFileName != null && imageFileName.length() != 0) {
+				File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+				File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				
+				String originalFileName = (String) articleMap.get("originalFileName");
+				File oldFile = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO+"\\"+originalFileName);
+				oldFile.delete();
+			}
+			
+			message = "<script>";
+			message += " alert('글이 수정되었습니다.');";
+			message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, reHttpHeaders, HttpStatus.CREATED);
+			
+		} catch (Exception e) {
+			File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
+			srcFile.delete();
+			
+			message = "<script>";
+			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
+			message += " location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, reHttpHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		
+		return resEnt;
+	}
 	
 	
 }
